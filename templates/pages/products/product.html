@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load products %}
+{% load reviews %}
+
+{% block title %}
+    {{ product.name }} | Sassori Imports
+{% endblock %}
+
+{% block head %}
+    <meta name="csrf-token" content="{{ csrf_token }}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <section>
+            <div class="miniatures">
+                {% for src in product.images.all %}
+                    <img src="{{ src.image.url }}" alt="{{ product.name }}" class="miniature">
+                {% endfor %}
+            </div>
+            <div class="main-image">
+                <div class="image-container">
+                    <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="zoom-img">
+                </div>
+                <p>{{ product.description|safe }}</p>
+            </div>
+        </section>        
+        <section>
+            <h1>{{ product.name }}</h1>
+
+            <div id="variantPrices">
+                {% for variant in product.variants.all %}
+                    <p class="price" data-variant-id="{{ variant.id }}" style="display: none;">
+                        R$ {{ variant.price }}
+                    </p>
+                {% endfor %}
+            </div>
+
+            {% if product|has_stock %}
+                <h3>Selecione o tamanho:</h3>
+                <select name="variants" id="selectVariant">
+                    <option value="0">Selecione uma Opção</option>
+                    {% for variant in product.variants.all %}
+                        <option value="{{ variant.id }}">{{ variant.size_label }}</option>
+                    {% endfor %}
+                </select>
+
+                <div class="freight-container">
+                    <h2>Simular Frete</h2>
+                    <div>
+                        <input
+                            type="text"
+                            id="CEP"
+                            placeholder="Insira seu CEP"
+                            maxlength="9"
+                            oninput="applyCepMask(this); clearResult()"
+                        />
+                        <button id="calculateFreightButton" class="button">
+                            Calcular
+                        </button>
+                    </div>
+                    <div id="freightResult"></div>
+                </div>
+                
+                <div class="button-container">
+                    <button class="button" id="addProduct">
+                        Adicionar ao Carrinho
+                    </button>
+                </div>
+            {% else %}
+                <p style="margin-top: 2rem;">Item fora de estoque</p>
+            {% endif %}
+        </section>
+    </div>
+    {% if product.reviews.all %}
+        <section class="reviews-section">
+            <h2>Avaliação dos clientes</h2>
+            {% for review in product.reviews.all %}
+                <div class="review">
+                    <strong>{{ review.customer.name }}</strong>
+                    <div class="review-header">
+                        <span class="rating">{% star_rating review.rating %}</span>
+                        <span class="date">{{ review.created_at }}</span>
+                    </div>
+                    {% if review.comment %}
+                        <p class="comment">{{ review.comment }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </section>    
+    {% endif %}
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static '/css/pages/products/product.css' %}">
+{% endblock %}
+
+
+{% block extra_js %}
+    <script>
+        let current_image = "{{ product.images.first.image.url }}"
+        let selectedVariant = 0
+    </script>
+    <script src="{% static '/js/pages/products/product.js' %}"></script>
+    <script src="{% static '/js/utils/freight.js' %}"></script>
+    <script src="{% static '/js/utils/cart.js' %}"></script>
+{% endblock %}

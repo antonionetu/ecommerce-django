@@ -1,0 +1,110 @@
+.banner-card {
+    display: flex;
+    margin: auto;
+    width: 60%;
+    background-color: #96231C;
+    border-radius: 15px;
+    position: relative;
+
+    div {
+        padding: 40px;
+        width: 100%;
+
+        p {
+            font-family: "Zain", sans-serif !important;
+            font-size: 80pt;
+            margin: 0px;
+            font-weight: 800;
+            text-align: center;
+            z-index: 4;
+            position: relative;
+        }
+
+        button {
+            margin: auto;
+            z-index: 4;
+            position: relative;
+        }
+    }
+}
+
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 10px;
+    color: white;
+    text-shadow: 2px 2px rgb(116, 116, 116);
+    text-transform: uppercase;
+    cursor: pointer;
+    letter-spacing: 1px;
+    font-weight: 600;
+    font-size: 20pt;
+    background-color: #111;
+    border-radius: 50px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+
+button:active {
+    transform: scale(0.9);
+    transition: all 100ms ease;
+}
+
+button img {
+    width: 10%;
+    transition: all 0.5s ease;
+    z-index: 2;
+}
+
+.compre {
+    transition: all 0.5s ease;
+    transition-delay: 300ms;
+}
+
+button:hover img {
+    transform: scale(3) translate(150%);
+}
+
+.agora {
+    position: absolute;
+    left: 0;
+    transform: translateX(-500%);
+    transition: all 0.5s ease;
+    z-index: 2;
+}
+
+button:hover .agora {
+    transform: translateX(200%);
+    transition-delay: 300ms;
+}
+
+button:hover .compre {
+    transform: translateX(500%);
+    transition-delay: 300ms;
+}
+
+.clouds-container { 
+    display: block;
+    height: 0;
+}
+
+.banner-cloud {
+    position: absolute;
+
+    img {
+        width: 100%;
+        z-index: 2;
+        position: relative;
+    }
+}
+
+.banner-cloud-1  { top: 5%;   left: -3%;   width: 80px !important;  transform: rotate(5deg); }
+.banner-cloud-2  { top: -5%;  left: 35%;  width: 100px !important; transform: rotate(-7deg); }
+.banner-cloud-3  { top: 25%;  left: 53%;  width: 120px !important; transform: rotate(3deg); }
+.banner-cloud-4  { top: -10%;  left: 80%;  width: 90px !important;  transform: rotate(-10deg); }
+.banner-cloud-5  { top: 55%;  left: 72%;  width: 110px !important; transform: rotate(6deg); }
+.banner-cloud-6  { top: 40%;  left: 4%;  width: 95px !important;  transform: rotate(-4deg); }
+.banner-cloud-7  { top: 48%;  left: 30%;  width: 130px !important; transform: rotate(9deg); }

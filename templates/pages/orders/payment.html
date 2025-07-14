@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <h1 style="display: inline;">Pagamento do Pedido:</h1>
+        <span style="margin-left: 1rem;">{{ order.cart.reference.code }}</span>
+
+        <ul>
+            <li><a href="?payment_method=pix">Pagar com Pix</a></li>
+            <li><a href="?payment_method=credit_card">Pagar com Cartão de Crédito</a></li>
+        </ul>
+
+        {% if pix %}
+            <div class="pix-section">
+                <h2>Pagamento via Pix</h2>
+                <p><strong>Chave Pix:</strong> {{ pix.key }}</p>
+                <img src="{{ pix.qr_code }}" alt="QR Code Pix">
+                <p>Expira em: <span id="counter">3:00</span></p>
+            </div>
+        {% elif credit_card_form %}
+            {% comment %}
+            <form method="post" id="credit-card-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="cardholderName">Nome do Titular</label>
+                    {{ credit_card_form.cardholderName }}
+                </div>
+        
+                <div class="form-group">
+                    <label for="cardNumber">Número do Cartão</label>
+                    {{ credit_card_form.cardNumber }}
+                </div>
+        
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="expirationDate">Validade (MM/AA)</label>
+                        {{ credit_card_form.expirationDate }}
+                    </div>
+                    <div class="form-group half">
+                        <label for="securityCode">CVV</label>
+                        {{ credit_card_form.securityCode }}
+                    </div>
+                </div>
+        
+                <div class="form-group" style="width: 100%; display: none;">
+                    <label for="installments">Parcelas</label>
+                    {{ credit_card_form.installments }}
+                </div>
+        
+                {{ credit_card_form.card_token }}
+        
+                <button type="submit">Pagar com Cartão</button>
+            </form>
+            {% endcomment %}
+            <span>função indisponível no momento</span>
+        {% endif %}
+    </div>
+
+    <div id="payment-popup" class="popup hidden">
+        <div class="popup-content">
+            <h2>Pagamento Confirmado</h2>
+            <p>Seu pagamento foi realizado com sucesso.</p>
+            <p>Em breve entraremos em contato com você via Whatsapp.</p>
+            <button onclick="closePopup()">Fechar</button>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static '/css/pages/orders/payment.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/pages/orders/payment.js' %}"></script>
+    {% if pix %}
+        <script>
+            const paymentID = "{{ pix.id }}"
+        </script>
+        <script src="{% static 'js/utils/payment/pix.js' %}"></script>
+    {% elif credit_card_form %}
+        <script>
+            const mercadoPagoPublicKey = "{{ mercado_pago_public_key }}";
+        </script>
+        <script src="https://sdk.mercadopago.com/js/v2"></script>
+        <script src="{% static 'js/utils/payment/credit_card.js' %}"></script>
+    {% endif %}
+{% endblock %}

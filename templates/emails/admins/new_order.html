@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <style>
+            body { font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px; color: #333; }
+            .container { background-color: #fff; padding: 20px; border-radius: 8px; }
+            h2 { color: #2c3e50; }
+            table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+            th, td { padding: 8px 12px; border-bottom: 1px solid #ddd; text-align: left; }
+            th { background-color: #f0f0f0; }
+            .total { font-weight: bold; color: #000; }
+            .footer { margin-top: 30px; font-size: 0.9em; color: #777; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h2>Novo pedido recebido</h2>
+            <span>Código de referência: {{ order.cart.reference.code }}</span>
+
+            <p><strong>Cliente:</strong> {{ order.cart.customer.name }}</p>
+            <p><strong>Email:</strong> {{ order.cart.customer.email }}</p>
+            <p><strong>Telefone:</strong> {{ order.cart.customer.phone }}</p>
+            <p><strong>Whatsapp:</strong> https://wa.me/55{{ order.cart.customer.phone }}</p>
+            <p><strong>CPF:</strong> {{ order.cart.customer.cpf }}</p>
+
+            {% with address=order.cart.customer.main_address %}
+                <p><strong>Endereço de entrega:</strong><br>
+                    {{ address.street }}, {{ address.number }}{% if address.complement %}, {{ address.complement }}{% endif %}<br>
+                    {{ address.neighborhood }} – {{ address.city }} / {{ address.state }}<br>
+                    CEP: {{ address.postal_code }} – {{ address.country }}
+                </p>
+            {% endwith %}
+
+            <h3>Itens do pedido</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Variação</th>
+                        <th>Quantidade</th>
+                        <th>Preço unitário</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in order.cart.items.all %}
+                        <tr>
+                            <td>{{ item.product_variant.product.name }}</td>
+                            <td>{{ item.product_variant.size_label }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>R$ {{ item.product_variant.price }}</td>
+                            <td>R$ {{ item.subtotal }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <p class="total">Empresa do frete: {{ order.freight_business }}</p>
+            <p class="total">Valor do frete: R$ {{ order.freight_amount }}</p>
+
+            <p class="total">Subtotal: R$ {{ order.purchase_amount }}</p>
+            <p class="total">Total: R$ {{ order.total_amount }}</p>
+
+            <div class="footer">
+                <p>Este é um aviso automático do sistema. Para mais detalhes, acesse o painel administrativo.</p>
+                <p><em>Data do pedido: {{ order.created_at|date:"d/m/Y H:i" }}</em></p>
+            </div>
+        </div>
+    </body>
+</html>

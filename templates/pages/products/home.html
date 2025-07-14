@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="banner-card">
+        {% include 'components/banner_card/1.html' %}
+    </div>
+
+    <div class="product-grid">
+        {% for product in products %}
+            {% include 'components/product_card.html' with product=product %}
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static '/css/pages/products/home.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        const getProductsUrl = "{% url 'products' %}"
+    </script>
+    <script src="{% static '/js/pages/products/home.js' %}"></script>
+{% endblock %}

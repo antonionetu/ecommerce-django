@@ -1,0 +1,15 @@
+{% load static %}
+
+<a href="{{ product.url }}" class="product_card">
+	<div class="image-container">
+		<img src="{{ product.images.first.image.url }}" alt="{{ product.name }}">
+	</div>
+	<div>
+		<h3>{{ product.name }}</h3>
+		<p>R$ {{ product.variants.first.price }}</p>
+	</div>
+</a>
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href='{% static "/css/components/product_card.css" %}'>    
+{% endblock %}

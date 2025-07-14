@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="login-container">
+        <h2>Entrar</h2>
+
+        {% if form.non_field_errors %}
+            <div class="errors">
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+			<input type="hidden" name="cart_reference" id="cart_reference" value="">
+
+            <label for="{{ form.username.id_for_label }}">Usuário:</label>
+            {{ form.username }}
+
+            {% if form.username.errors %}
+                <div class="errors">
+                    {% for error in form.username.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <label for="{{ form.password.id_for_label }}">Senha:</label>
+            {{ form.password }}
+
+            {% if form.password.errors %}
+                <div class="errors">
+                    {% for error in form.password.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <input class="button" type="submit" value="Entrar">
+        </form>
+
+        <p style="margin-top: 1rem; color: #ff4c4c; text-align: center;">
+            Ainda não tem uma conta?
+            <a href="{% url 'customers_sign_up' %}" style="color: #ff0000; text-decoration: underline;">
+                Cadastre-se aqui
+            </a>
+        </p>
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static '/css/pages/customers/auth/sign_in.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static '/js/pages/customers/auth/sign_up.js' %}"></script>
+{% endblock %}

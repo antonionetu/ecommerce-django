@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="cart-container">
+        {% if cart %}
+            <h1>Carrinho</h1>
+
+            {% if cart.reference %}
+                <p><strong>Código de Referência:</strong> {{ cart.reference.code }}</p>
+            {% endif %}
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Tamanho</th>
+                        <th>Preço</th>
+                        <th>Quantidade</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart.items.all %}
+                        <tr>
+                            <td>{{ item.product_variant.product.name }}</td>
+                            <td>{{ item.product_variant.size_label }}</td>
+                            <td>R$ {{ item.product_variant.price }}</td>
+                            <td class="quantity-cell">
+                                <button class="qty-btn decrease" data-item-id="{{ item.product_variant.id }}">−</button>
+                                <span class="item-quantity" id="qty-{{ item.product_variant.id }}">{{ item.quantity }}</span>
+                                <button class="qty-btn increase" data-item-id="{{ item.product_variant.id }}">+</button>
+                            </td>
+                            <td>R$ <span class="item-subtotal" id="subtotal-{{ item.product_variant.id }}">{{ item.subtotal }}</span></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            {% if user.is_authenticated %}
+                <div id="freightOptions"></div>
+            {% endif %}
+
+            <h3>Total: R$ <span id="cart-total" data-base="{{ cart.subtotal }}">{{ cart.subtotal }}</span></h3>
+
+            {% if cart.shopping %}
+                {% if cart.items.count > 0 %}
+                    {% if user.is_authenticated %}
+                        <form method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="cart_reference" id="cart_reference">
+                            <input type="hidden" name="freight_id" id="freight_id">
+
+                            <div class="action-buttons">
+                                <button id="checkoutBtn" class="checkout-btn" type="submit">
+                                    Continuar com Pagamento
+                                </button>
+                            </div>
+                        </form>
+                    {% else %}
+                        <div class="action-buttons">
+                            <button class="checkout-btn" onclick="location.href='{% url 'customers_sign_in' %}'">
+                                Fazer login
+                            </button>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <p class="empty-cart">Seu carrinho está vazio.</p>
+                {% endif %}
+            {% else %}
+                <p>Status: <span class="status-done">Finalizado</span></p>
+            {% endif %}
+        {% else %}
+            <h2>Seu carrinho está vazio.</h2>
+        {% endif %}
+    </div>
+
+    <div id="confirmModal" class="modal hidden">
+        <div class="modal-content">
+        <p>Deseja remover este item do carrinho?</p>
+        <div class="modal-buttons">
+            <button id="confirmYes" class="btn btn-danger">Sim</button>
+            <button id="confirmNo" class="btn btn-secondary">Não</button>
+        </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static '/css/pages/orders/cart.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        const freightOptions = JSON.parse("{{ freights|escapejs }}");
+    </script>
+    <script src="{% static '/js/utils/cart.js' %}"></script>
+    <script src="{% static '/js/utils/freight.js' %}"></script>
+    <script src="{% static '/js/pages/orders/cart.js' %}"></script>
+{% endblock %}

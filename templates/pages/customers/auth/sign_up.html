@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load customers_forms %}
+
+{% block content %}
+    <div class="login-container">
+		<h2>Criar Conta</h2>
+		<form id="multi-step-form" method="post" novalidate>
+			{% csrf_token %}
+
+			{% if form.errors %}
+				<div class="errors">
+					{% first_error form %}
+				</div>
+			{% endif %}
+
+			<input type="hidden" name="cart_reference" id="cart_reference" value="">
+
+			<div class="form-step active">
+				<label for="id_username">Usuário</label>
+				{{ form.username }}
+				<label for="id_password1">Senha</label>
+				{{ form.password1 }}
+				<label for="id_password2">Confirmar Senha</label>
+				{{ form.password2 }}
+				<button type="button" class="button" id="next-1">Próximo</button>
+			</div>
+
+			<div class="form-step">
+				<label for="id_name">Nome Completo</label>
+				{{ form.name }}
+				<label for="id_phone">Telefone</label>
+				{{ form.phone }}
+				<label for="id_email">Email</label>
+				{{ form.email }}
+				<label for="id_cpf">CPF</label>
+				{{ form.cpf }}
+				<div class="form-nav">
+					<button type="button" class="button" id="prev-2">Voltar</button>
+					<button type="button" class="button" id="next-2">Próximo</button>
+				</div>
+			</div>
+
+			<div class="form-step">
+				<div class="form-container">
+					<div>
+						<label for="id_postal_code">CEP</label>
+						{{ form.postal_code }}
+						<label for="id_street">Rua</label>
+						{{ form.street }}
+						<label for="id_number">Número</label>
+						{{ form.number }}
+						<label for="id_complement">Complemento</label>
+						{{ form.complement }}
+					</div>
+					<div>
+						<label for="id_neighborhood">Bairro</label>
+						{{ form.neighborhood }}
+						<label for="id_city">Cidade</label>
+						{{ form.city }}
+						<label for="id_state">Estado</label>
+						{{ form.state }}
+						<label for="id_country">País</label>
+						{{ form.country }}
+					</div>
+				</div>
+				<div class="form-nav">
+					<button type="button" class="button" id="prev-3">Voltar</button>
+					<button type="submit" class="button">Registrar</button>
+				</div>
+			</div>
+		</form>
+	</div>
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static '/css/pages/customers/auth/sign_up.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static '/js/pages/customers/auth/sign_up.js' %}"></script>
+{% endblock %}

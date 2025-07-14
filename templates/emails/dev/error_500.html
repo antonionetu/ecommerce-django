@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; }
+            .error-container { max-width: 800px; margin: 0 auto; padding: 20px; }
+            .error-header { background-color: #d9534f; color: white; padding: 10px; border-radius: 5px; }
+            .error-details { background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin-top: 20px; }
+            pre { white-space: pre-wrap; word-wrap: break-word; background-color: #f1f1f1; padding: 10px; border-radius: 3px; }
+        </style>
+    </head>
+    <body>
+        <div class="error-container">
+            <div class="error-header">
+                <h2>⚠️ Erro 500 no site {{ site_name }}</h2>
+                <p>Ocorreu um erro interno no servidor</p>
+            </div>
+            
+            <div class="error-details">
+                <h3>Detalhes da requisição:</h3>
+                <ul>
+                    <li><strong>URL:</strong> {{ request.path }}</li>
+                    <li><strong>Usuário:</strong> {{ request.user|default:"Anônimo" }}</li>
+                    <li><strong>Método:</strong> {{ request.method }}</li>
+                    <li><strong>IP:</strong> {{ request.META.REMOTE_ADDR }}</li>
+                    <li><strong>Data/Hora:</strong> {% now "DATETIME_FORMAT" %}</li>
+                </ul>
+                
+                <h3>Headers:</h3>
+                <pre>{{ headers }}</pre>
+
+                <h3>Parâmetros {{ request.method }}:</h3>
+                <pre>{{ params }}</pre>
+                
+                <h3>Traceback do erro:</h3>
+                <pre>{{ error_traceback }}</pre>
+            </div>
+        </div>
+    </body>
+</html>

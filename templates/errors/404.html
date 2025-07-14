@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="center-box">
+        <h1 class="error-code">404</h1>
+        <p class="error-message">Ops! A página que você procura não foi encontrada.</p>
+        <a href="/" class="btn-red">Voltar para o início</a>
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static '/css/errors/404.css'%}">
+{% endblock %}

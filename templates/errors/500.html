@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="center-box">
+        <h1 class="error-code">500</h1>
+        <p class="error-message">Erro interno no servidor. Já estamos verificando!</p>
+        <a href="/" class="btn-red">Voltar para o início</a>
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static '/css/errors/500.css'%}">
+{% endblock %}

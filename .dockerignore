@@ -1,0 +1,11 @@
+.idea
+.git
+.github
+
+.dockerignore
+.env.example
+docker-compose.yml
+
+LICENSE
+Makefile
+README

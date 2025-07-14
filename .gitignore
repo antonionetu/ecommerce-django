@@ -1,0 +1,14 @@
+.vscode/
+.idea
+
+venv
+.env
+
+__pycache__
+db.sqlite3
+
+static/admin
+staticfiles
+media
+
+todo.md

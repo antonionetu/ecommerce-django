@@ -1,0 +1,55 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Sassori Imports{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% block head %}{% endblock %}
+        <link rel="stylesheet" type="text/css" href='{% static "/css/base.css" %}'>
+        <link rel="stylesheet" type="text/css" href='{% static "/css/globals.css" %}'>
+        {% block extra_css %}{% endblock %}
+        <script src="{% static '/js/base.js' %}"></script>
+        <script>
+            let csrfToken = '{{ csrf_token }}';
+            let cartManagementEndPoint = "{% url 'orders_cart' 'vazio' %}".replace("vazio", cartReference)
+        </script>
+        {% block extra_js %}{% endblock %}
+    </head>
+
+    <body>
+        <header>
+            <div>
+                <img src="{% static 'img/akatsuki_cloud.png' %}" alt="akatsuki cloud" style="width: 120px;">
+                <h1>Sassori Imports</h1>
+            </div>
+            <nav>
+                <a href="{% url 'products' %}">Produtos</a>
+                <a href="#" id="cartLinkPage">Carrinho</a>
+                {% if not user.is_authenticated %}
+                    <a href="{% url 'customers_sign_in' %}">Entrar</a>
+                {% endif %}
+            </nav>
+        </header>
+
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <footer>
+            <p style="margin-top: 10rem;">&copy; 2025 Sassori Imports. Todos direitos reservados.</p>
+        </footer>
+
+        <span>
+            <div class="akatsuki-background">
+                {% for i in "akatsukiumgrupodehon" %}
+                    <span class="cloud cloud-{{ forloop.counter }}">
+                        <img src="{% static 'img/akatsuki_cloud.png' %}" alt="akatsuki cloud">
+                    </span>
+                {% endfor %}
+            </div>            
+        </span>
+    </body>
+</html>

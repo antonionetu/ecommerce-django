@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap');
+
+body {
+    background-color: #111;
+    color: white;
+    font-family: "Zain", sans-serif;
+}
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    font-family: "Orbitron", sans-serif;
+
+    div {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+
+        h1 {
+            font-size: 40pt;
+        }
+    }
+
+    nav {
+        display: flex;
+        gap: 40px;
+        
+        a {
+            font-size: 20pt;
+            color: white;
+            transition: 0.5s;
+            text-decoration: none;
+            position: relative;
+
+            &:hover {
+                color: rgb(255, 60, 60);
+            }
+
+            &::after {
+                content: '';
+                display: block;
+                width: 100%;
+                height: 2px;
+                background-color: red;
+                position: absolute;
+                bottom: -5px;
+                left: 0;
+                transform: scaleX(0);
+                transition: transform 0.3s ease;
+            }
+
+            &:hover::after {
+                transform: scaleX(1);
+            }
+        }
+    }
+}
+
+
+.cloud {
+    position: fixed;
+    z-index: -1;
+    opacity: 0.4;
+    animation: sway 12s ease-in-out infinite;
+    transform-origin: center;
+
+    img {
+        width: 100%;
+        height: auto;
+        pointer-events: none;
+    }
+}
+
+.cloud-1  { top: 5%;   left: -3%;   width: 80px;  transform: rotate(5deg); }
+.cloud-2  { top: 12%;  left: 35%;  width: 100px; transform: rotate(-7deg); }
+.cloud-3  { top: 20%;  left: 45%;  width: 120px; transform: rotate(3deg); }
+.cloud-4  { top: 28%;  left: 80%;  width: 90px;  transform: rotate(-10deg); }
+.cloud-5  { top: 33%;  left: 60%;  width: 110px; transform: rotate(6deg); }
+.cloud-6  { top: 40%;  left: 10%;  width: 95px;  transform: rotate(-4deg); }
+.cloud-7  { top: 48%;  left: 30%;  width: 130px; transform: rotate(9deg); }
+.cloud-8  { top: 55%;  left: 70%;  width: 105px; transform: rotate(-6deg); }
+.cloud-9  { top: 60%;  left: 85%;  width: 100px; transform: rotate(4deg); }
+.cloud-10 { top: 65%;  left: 5%;   width: 90px;  transform: rotate(-8deg); }
+.cloud-11 { top: 10%;  left: 60%;  width: 85px;  transform: rotate(3deg); }
+.cloud-12 { top: 22%;  left: 12%;  width: 95px;  transform: rotate(-5deg); }
+.cloud-13 { top: 36%;  left: 50%;  width: 100px; transform: rotate(7deg); }
+.cloud-14 { top: 44%;  left: 78%;  width: 80px;  transform: rotate(-3deg); }
+.cloud-15 { top: 50%;  left: 15%;  width: 115px; transform: rotate(10deg); }
+.cloud-16 { top: 58%;  left: 40%;  width: 90px;  transform: rotate(-9deg); }
+.cloud-17 { top: 66%;  left: 68%;  width: 105px; transform: rotate(2deg); }
+.cloud-18 { top: 74%;  left: 28%;  width: 95px;  transform: rotate(-7deg); }
+.cloud-19 { top: 80%;  left: 55%;  width: 125px; transform: rotate(6deg); }
+.cloud-20 { top: 88%;  left: 90%;  width: 85px;  transform: rotate(-4deg); }
+
+@keyframes sway {
+    0%   { transform: translateY(0) rotate(0deg) scale(1); }
+    50%  { transform: translateY(-50px) rotate(2deg) scale(1.02); }
+    100% { transform: translateY(0) rotate(0deg) scale(1); }
+}

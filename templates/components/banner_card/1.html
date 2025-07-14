@@ -1,0 +1,24 @@
+{% load static %}
+
+<div>
+    <p>Novos Produtos</p>
+    <button>
+        <img src="{% static 'img/mangekyou.png' %}" alt="akatsuki cloud">
+        <span class="compre">Compre</span>
+        <span class="agora">AGORA!</span>
+    </button>
+    <span class="clouds-container">
+        <div>
+            {% for i in "akatuki" %}
+                <div class="banner-cloud banner-cloud-{{ forloop.counter }}">
+                    <img src="{% static 'img/akatsuki_cloud.png' %}" alt="akatsuki cloud">
+                </div>
+            {% endfor %}
+        </div>            
+    </span>      
+</div>
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href='{% static "/css/components/banner_card/1.css" %}'>    
+{% endblock %}
+
