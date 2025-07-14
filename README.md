@@ -1,25 +1,30 @@
-- feature de pagamento por cartão
-- meus pedidos/tracking da encomenda
+# 📦 Funcionalidades e Infraestrutura do Projeto
 
-- responsividade
+## 🚀 Funcionalidades Principais
+- [ ] **Pagamento por cartão**
+- [ ] **Meus pedidos / Tracking da encomenda**
+- [ ] **Responsividade**
 
-- whatsapp
-    - novos pedidos (aviso para o admin ver o email)
-    - tracking da encomenda (usuario)
-    - BI de desistencia
+## 💬 Integração com WhatsApp
+- [ ] Notificação de **novos pedidos**
+- [ ] **Tracking da encomenda** via WhatsApp (usuário final)
+- [ ] **BI de desistência** (registro e análise de abandono de pedidos)
 
-- logs
+## 📜 Logs e Monitoramento
+- [ ] Implementação de **logs estruturados** para auditoria e debugging
 
-- testes unitários
-- testes de integração
+## 🧪 Testes
+- [ ] **Testes unitários**
+- [ ] **Testes de integração**
 
-- docker
+## 🐳 Infraestrutura
+- [ ] **Containerização com Docker**
+- [ ] **Servidor Nginx**
 
-- nginx
+---
 
---------------------------------------------------------------
-
-- Readme
-- License
-- Makefile
-- Setar como public template no github
+## 📁 Arquivos e Configurações
+- [ ] `README.md` 
+- [ ] `LICENSE` 
+- [ ] `Makefile` 
+- [x] Configurar como **template público** no GitHub
