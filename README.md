@@ -1,4 +1,4 @@
-# 📦 Funcionalidades e Infraestrutura do Projeto
+# ✅ To Do
 
 ## 🚀 Funcionalidades Principais
 - [ ] **Pagamento por cartão**
